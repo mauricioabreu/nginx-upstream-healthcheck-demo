@@ -1,0 +1,32 @@
+services:
+  edge:
+    image: openresty/openresty:1.21.4.1-6-alpine-fat
+    ports:
+      - "8081:8080"
+    volumes:
+      - "./edge.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+    links:
+      - upstream_a
+      - upstream_b
+      - upstream_c
+
+  upstream_a:
+    image: openresty/openresty:1.21.4.1-6-alpine-fat
+    ports:
+      - "8082:8080"
+    volumes:
+      - "./origin.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+
+  upstream_b:
+    image: openresty/openresty:1.21.4.1-6-alpine-fat
+    ports:
+      - "8083:8080"
+    volumes:
+      - "./origin.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+
+  upstream_c:
+    image: openresty/openresty:1.21.4.1-6-alpine-fat
+    ports:
+      - "8084:8080"
+    volumes:
+      - "./origin.conf:/usr/local/openresty/nginx/conf/nginx.conf"
